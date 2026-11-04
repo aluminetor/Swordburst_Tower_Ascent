@@ -23,5 +23,5 @@ class Entity():
         return real_damage
 
     def attack(self, target):
-        power = self.take_damage(target)
-        return power 
+        power = self.power_attack
+        return target.take_damage(power)
