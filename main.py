@@ -5,8 +5,9 @@ def main():
     bear = Entity(name="Bear", max_hp=1500, power_attack=400, defend=300)
     # Instanciamos el segundo objeto
     wasp = Entity(name="Wasp",max_hp=1200,power_attack=150,defend=250)
-    
+
     attack = Entity.attack(bear,wasp)
+    
     print(f"{bear.get_name()} ataco a  {wasp.get_name()}.")                                                    
     print(f"Daño realizado: {attack} HP.")    
     print(f"{bear.get_name()} ataco a  {wasp.get_name()}, salud del Wasp {wasp.get_health()}")
