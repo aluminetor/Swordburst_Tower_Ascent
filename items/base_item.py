@@ -1,6 +1,7 @@
 
 class Item():
     def __init__(self, name: str, rarity: str) -> None:
+        # "Common", "Rare", "Legendary"
         self._name = name
         self._rarity = rarity
 

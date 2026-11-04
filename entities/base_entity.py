@@ -25,3 +25,8 @@ class Entity():
     def attack(self, target):
         power = self.power_attack
         return target.take_damage(power)
+
+    def heal(self,amount):
+        self.__hp = min(self.__max_health, amount + __hp)
+        return self.__hp
+
