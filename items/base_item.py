@@ -9,3 +9,4 @@ class Item():
         # Creación de una instancia
         #p = Persona("Lucía", 28)
     
+    
