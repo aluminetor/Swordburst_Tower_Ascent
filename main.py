@@ -1,3 +1,5 @@
+import random
+
 from entities.base_entity import Entity
 from items.base_item import Item
 from items.weapons import Sword
@@ -25,11 +27,55 @@ def main():
         name="Paladin",
         max_hp=1800,
         power_attack=250,
-        defend=350
+        defend=180
     )
 
     dual_wielder.equip_weapon(iron_sword)
     dual_wielder.equip_offhand_weapon(dark_repulsor)
+
+    random.seed(1)
+    unarmed_dual_wielder = Player.DualWielder(
+        name="Unarmed Dual Wielder",
+        max_hp=1300,
+        power_attack=350,
+        defend=220
+    )
+    unarmed_target = Entity(
+        name="Unarmed Target",
+        max_hp=2000,
+        power_attack=0,
+        defend=0
+    )
+    armed_target = Entity(
+        name="Armed Target",
+        max_hp=2000,
+        power_attack=0,
+        defend=0
+    )
+    unarmed_damage = unarmed_dual_wielder.starburst_stream(unarmed_target)
+    armed_damage = dual_wielder.starburst_stream(armed_target)
+    print(f"Daño desarmado: {unarmed_damage} HP.")
+    print(f"Daño con dos espadas: {armed_damage} HP.")
+
+    print("\n--- Turno 1 ---")
+    dual_damage = dual_wielder.starburst_stream(paladin)
+    print(f"DualWielder inflige {dual_damage} HP al Paladin.")
+    paladin_damage = paladin.attack(dual_wielder)
+    print(f"Paladin inflige {paladin_damage} HP al DualWielder.")
+    print(f"Salud del Paladin: {paladin.get_health()} HP.")
+    print(f"Salud del DualWielder: {dual_wielder.get_health()} HP.")
+
+    print("\n--- Turno 2 ---")
+    dual_damage = dual_wielder.starburst_stream(paladin)
+    print(f"DualWielder inflige {dual_damage} HP al Paladin.")
+    paladin_damage = paladin.attack(dual_wielder)
+    print(f"Paladin inflige {paladin_damage} HP al DualWielder.")
+    health_before_heal = paladin.get_health()
+    paladin.holy_light()
+    print(
+        f"Paladin se cura de {health_before_heal} a "
+        f"{paladin.get_health()} HP consumiendo 20 de estamina."
+    )
 
     attack = Entity.attack(bear,wasp)
     
