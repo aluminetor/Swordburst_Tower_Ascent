@@ -1,3 +1,4 @@
+import random
 from entities.base_entity import Entity
 class Player(Entity):
     def __init__(self,name: str, max_hp, power_attack, defend) -> None:
@@ -62,8 +63,20 @@ class Player(Entity):
 
 
     class Paladin(Player):
-        def __init__(self, name: str, max_hp: int, power_attack: int, defend: int):
+        def __init__(self, name: str, max_hp, power_attack, defend) -> None:
             super().__init__(name, max_hp, power_attack, defend)
-            self._offhand_weapon = 10
+            self._defend += 10
 
+        def take_damage(self, raw_damage):
+            if random.random() < 0.5:
+                raw_damage *= 0.5
+
+            return super().take_damage(int(raw_damage))
+
+        def holy_light(self):
+            if not self.consume_stamina(20):
+                return False
+
+            self.heal(30)
+            return True
         
