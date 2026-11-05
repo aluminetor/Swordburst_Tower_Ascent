@@ -2,6 +2,7 @@ from entities.base_entity import Entity
 from items.base_item import Item
 from items.weapons import Sword
 from items.consumables import Potion
+from entities.player import Player
 
 def main(): 
     # Instanciamos el primer objeto y segundo (por ejemplo, el bear)
@@ -12,6 +13,23 @@ def main():
     dark_repulsor = Sword(name="Dark Repulsor",rarity="Rare",bonus_damage=35)
     #potion
     potion = Potion(name="Health Potion",rarity="Common",heal_amount=100)
+    #Instancia un DualWielder y un Paladin.
+    dual_wielder = Player.DualWielder(
+        name="Dual Wielder",
+        max_hp=1300,
+        power_attack=350,
+        defend=220
+    )
+
+    paladin = Player.Paladin(
+        name="Paladin",
+        max_hp=1800,
+        power_attack=250,
+        defend=350
+    )
+
+    dual_wielder.equip_weapon(iron_sword)
+    dual_wielder.equip_offhand_weapon(dark_repulsor)
 
     attack = Entity.attack(bear,wasp)
     

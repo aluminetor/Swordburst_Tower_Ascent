@@ -42,41 +42,48 @@ class Player(Entity):
 
     def recover_stamina(self,amount):
         self.__stamina = min(self.__max_stamina, self.__stamina + amount)
- 
-
-    class DualWielder(Player):
-        def __init__(self, name: str, max_hp, power_attack, defend) -> None:
-            super().__init__(name, max_hp, power_attack, defend)
-            self._offhand_weapon = None
-
-        def starburst_stream(self, target):
-            if not self.consume_stamina(20):
-                return 0
-
-            total_damage = target.take_damage(self._calculate_total_attack())
-
-            if self._offhand_weapon is not None and target.is_alive():
-                offhand_damage = self.power_attack + self._offhand_weapon.get_bonus_damage()
-                total_damage += target.take_damage(int(offhand_damage * 0.7))
-
-            return total_damage
 
 
-    class Paladin(Player):
-        def __init__(self, name: str, max_hp, power_attack, defend) -> None:
-            super().__init__(name, max_hp, power_attack, defend)
-            self._defend += 10
+class DualWielder(Player):
+    def __init__(self, name: str, max_hp, power_attack, defend) -> None:
+        super().__init__(name, max_hp, power_attack, defend)
+        self._offhand_weapon = None
 
-        def take_damage(self, raw_damage):
-            if random.random() < 0.5:
-                raw_damage *= 0.5
+    def equip_offhand_weapon(self, new_weapon):
+        if self._offhand_weapon == None:
+            self._offhand_weapon = new_weapon
 
-            return super().take_damage(int(raw_damage))
+    def starburst_stream(self, target):
+        if not self.consume_stamina(20):
+            return 0
 
-        def holy_light(self):
-            if not self.consume_stamina(20):
-                return False
+        total_damage = target.take_damage(self._calculate_total_attack())
 
-            self.heal(30)
-            return True
-        
+        if self._offhand_weapon is not None and target.is_alive():
+            offhand_damage = self.power_attack + self._offhand_weapon.get_bonus_damage()
+            total_damage += target.take_damage(int(offhand_damage * 0.7))
+
+        return total_damage
+
+
+class Paladin(Player):
+    def __init__(self, name: str, max_hp, power_attack, defend) -> None:
+        super().__init__(name, max_hp, power_attack, defend)
+        self._defend += 10
+
+    def take_damage(self, raw_damage):
+        if random.random() < 0.5:
+            raw_damage *= 0.5
+
+        return super().take_damage(int(raw_damage))
+
+    def holy_light(self):
+        if not self.consume_stamina(20):
+            return False
+
+        self.heal(30)
+        return True
+
+
+Player.DualWielder = DualWielder
+Player.Paladin = Paladin
