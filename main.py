@@ -90,20 +90,23 @@ def main():
     )
     print_health("Paladin", paladin.get_health(), 1800)
 
-    attack = Entity.attack(bear,wasp)
-    
-    print(f"{bear.get_name()} ataco a  {wasp.get_name()}.")                                                    
-    print(f"Daño realizado: {attack} HP.")    
-    print(f"{bear.get_name()} ataco a  {wasp.get_name()}, salud del Wasp {wasp.get_health()}")
+    print_section("Equipo y consumibles")
+    attack = Entity.attack(bear, wasp)
+
+    print(f"{bear.get_name()} atacó a {wasp.get_name()}.")
+    print(f"Daño realizado: {attack} HP.")
+    print_health("Wasp", wasp.get_health(), 1200)
+
+    print("Armas equipadas:")
     print(iron_sword)
     print(dark_repulsor)
 
-    #metodo if espada_2 > espada_1
-    print(Sword.__gt__(dark_repulsor,iron_sword))
+    print(f"¿Dark Repulsor es superior? {'Sí' if dark_repulsor > iron_sword else 'No'}")
 
     # entidad de prueba de la Fase 1 reciba daño, y luego usa una Potion sobre ella(wasp)
     potion.use(wasp)
-    print(f"salud del Wasp {wasp.get_health()}")
+    print(f"{potion} aplicada a {wasp.get_name()}.")
+    print_health("Wasp", wasp.get_health(), 1200)
 
 if __name__ == "__main__":
     main()
