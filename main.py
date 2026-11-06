@@ -11,6 +11,12 @@ def print_section(title):
     print(f"\n{'=' * 12} {title} {'=' * 12}")
 
 
+def print_health(name, health, max_health):
+    filled = max(0, min(20, round(20 * health / max_health)))
+    bar = "#" * filled + "-" * (20 - filled)
+    print(f"{name:<16} [{bar}] {health}/{max_health} HP")
+
+
 def main(): 
     print_section("Swordburst Tower Ascent")
     # Instanciamos el primer objeto y segundo (por ejemplo, el bear)
@@ -63,15 +69,15 @@ def main():
     print(f"Daño desarmado: {unarmed_damage} HP.")
     print(f"Daño con dos espadas: {armed_damage} HP.")
 
-    print("\n--- Turno 1 ---")
+    print_section("Turno 1")
     dual_damage = dual_wielder.starburst_stream(paladin)
     print(f"DualWielder inflige {dual_damage} HP al Paladin.")
     paladin_damage = paladin.attack(dual_wielder)
     print(f"Paladin inflige {paladin_damage} HP al DualWielder.")
-    print(f"Salud del Paladin: {paladin.get_health()} HP.")
-    print(f"Salud del DualWielder: {dual_wielder.get_health()} HP.")
+    print_health("Paladin", paladin.get_health(), 1800)
+    print_health("DualWielder", dual_wielder.get_health(), 1300)
 
-    print("\n--- Turno 2 ---")
+    print_section("Turno 2")
     dual_damage = dual_wielder.starburst_stream(paladin)
     print(f"DualWielder inflige {dual_damage} HP al Paladin.")
     paladin_damage = paladin.attack(dual_wielder)
@@ -82,6 +88,7 @@ def main():
         f"Paladin se cura de {health_before_heal} a "
         f"{paladin.get_health()} HP consumiendo 20 de estamina."
     )
+    print_health("Paladin", paladin.get_health(), 1800)
 
     attack = Entity.attack(bear,wasp)
     
