@@ -84,6 +84,3 @@ class Paladin(Player):
         self.heal(30)
         return True
 
-
-Player.DualWielder = DualWielder
-Player.Paladin = Paladin

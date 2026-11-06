@@ -11,8 +11,7 @@ class Sword(Item):
     
     def __str__(self):
         return f"[{self._rarity}] {self._name} (+{self._bonus_damage} ATK)"
-        # Creación de una instancia
-        #p = Persona("Lucía", 28)
+
     
     def __gt__(self, other):
         return self._bonus_damage > other._bonus_damage
