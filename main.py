@@ -6,7 +6,13 @@ from items.weapons import Sword
 from items.consumables import Potion
 from entities.player import Player
 
+
+def print_section(title):
+    print(f"\n{'=' * 12} {title} {'=' * 12}")
+
+
 def main(): 
+    print_section("Swordburst Tower Ascent")
     # Instanciamos el primer objeto y segundo (por ejemplo, el bear)
     bear = Entity(name="Bear", max_hp=1500, power_attack=400, defend=300)
     wasp = Entity(name="Wasp",max_hp=1200,power_attack=150,defend=250)
