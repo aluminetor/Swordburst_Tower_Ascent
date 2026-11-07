@@ -92,6 +92,35 @@ currently limited to the main-hand and off-hand weapon slots.
 
 ## Project structure
 
-- `main.py` - Runs the sample battle.
-- `entities/` - Base entities and player classes.
-- `items/` - Weapons, potions, and shared item behavior.
+- `main.py` - Scripted demo: damage comparison, combat turns, equipment, and
+  potions.
+- `entities/base_entity.py` - `Entity` base class with health, damage, defense,
+  and healing.
+- `entities/player.py` - `Player`, `DualWielder`, and `Paladin` classes.
+- `items/base_item.py` - Shared `Item` base class.
+- `items/weapons.py` - `Sword` equipment with attack bonuses.
+- `items/consumables.py` - `Potion` consumables.
+
+## Sample output
+
+The script prints a banner for each section, for example:
+
+```text
+============ Swordburst Tower Ascent ============
+============ Turno 1 ============
+============ Turno 2 ============
+============ Equipo y consumibles ============
+```
+
+## Roadmap
+
+- Add a proper combat log for every damage roll.
+- Introduce more enemy types and encounter waves.
+- Implement inventory management and weapon swapping.
+- Add automated tests for combat math and ability costs.
+- Build tower progression with floors and rewards.
+
+## Notes
+
+Console messages are in Spanish, while code identifiers and this README are in
+English.

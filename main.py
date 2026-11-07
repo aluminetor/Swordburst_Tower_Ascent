@@ -4,7 +4,7 @@ from entities.base_entity import Entity
 from items.base_item import Item
 from items.weapons import Sword
 from items.consumables import Potion
-from entities.player import Player
+from entities.player import Player, DualWielder, Paladin
 
 
 def print_section(title):
@@ -28,14 +28,14 @@ def main():
     #potion
     potion = Potion(name="Health Potion",rarity="Common",heal_amount=100)
     #Instancia un DualWielder y un Paladin.
-    dual_wielder = Player.DualWielder(
+    dual_wielder = DualWielder(
         name="Dual Wielder",
         max_hp=1300,
         power_attack=350,
         defend=220
     )
 
-    paladin = Player.Paladin(
+    paladin = Paladin(
         name="Paladin",
         max_hp=1800,
         power_attack=250,
@@ -46,7 +46,7 @@ def main():
     dual_wielder.equip_offhand_weapon(dark_repulsor)
 
     random.seed(1)
-    unarmed_dual_wielder = Player.DualWielder(
+    unarmed_dual_wielder = DualWielder(
         name="Unarmed Dual Wielder",
         max_hp=1300,
         power_attack=350,
