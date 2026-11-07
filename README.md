@@ -72,6 +72,24 @@ inventory, and an equipped weapon.
 - Has a 50% chance to halve incoming damage.
 - `holy_light()` costs 20 stamina and heals 30 HP.
 
+## Items and equipment
+
+### Swords
+
+`Sword` stores a name, rarity, and bonus damage. `get_bonus_damage()` feeds into
+player attacks, while `>` and `==` compare swords by bonus damage so equipment
+strength can be checked directly.
+
+### Potions
+
+`Potion` is a consumable with a `heal_amount`. `use(target)` heals the target
+without exceeding its maximum HP.
+
+### Inventory
+
+`Player` reserves an inventory list for future item management. Equipping is
+currently limited to the main-hand and off-hand weapon slots.
+
 ## Project structure
 
 - `main.py` - Runs the sample battle.
