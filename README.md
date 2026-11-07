@@ -49,6 +49,29 @@ is discarded.
 equipment inspection, and a potion use. `random.seed(1)` keeps the demo
 repeatable across runs.
 
+## Playable classes
+
+All player classes inherit from `Player`, which extends `Entity` with stamina,
+inventory, and an equipped weapon.
+
+### Player
+
+- Base HP, attack, and defense come from `Entity`.
+- `attack(target)` adds the equipped weapon's bonus damage.
+- Tracks stamina through `consume_stamina` and `recover_stamina`.
+
+### DualWielder
+
+- Can equip a second weapon in the off-hand slot.
+- `starburst_stream(target)` costs 20 stamina: it lands a main-hand hit at full
+  attack power, then an off-hand hit at 70% power if the target survives.
+
+### Paladin
+
+- Starts with 10 extra defense.
+- Has a 50% chance to halve incoming damage.
+- `holy_light()` costs 20 stamina and heals 30 HP.
+
 ## Project structure
 
 - `main.py` - Runs the sample battle.
