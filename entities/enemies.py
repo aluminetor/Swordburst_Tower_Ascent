@@ -1,3 +1,4 @@
+import random
 from typing import Optional
 
 from entities.base_entity import Entity
@@ -18,5 +19,14 @@ class Enemy(Entity):
         self._xp_reward = xp_reward
         self._loot_table = [] if loot_table is None else loot_table
 
+    def drop_loot(self) -> Optional[Item]:
+        if not self._loot_table:
+            return None
 
-    
+        if random.randint(1, 100) <= 50:
+            return random.choice(self._loot_table)
+
+        return None
+
+    def get_xp_reward(self) -> int:
+        return self._xp_reward

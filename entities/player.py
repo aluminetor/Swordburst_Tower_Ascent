@@ -4,11 +4,14 @@ class Player(Entity):
     def __init__(self,name: str, max_hp, power_attack, defend) -> None:
         super().__init__(name, max_hp, power_attack, defend)
         self._level = 1
+        self._xp = 0
         self.__stamina = 100
         self.__max_stamina = 100
         self._inventory = []
         self._equipped_weapon = None
 
+    def gain_xp(self, amount: int) -> None:
+        self._xp += amount
 
     def equip_weapon(self,new_weapon):
         if self._equipped_weapon == None:
