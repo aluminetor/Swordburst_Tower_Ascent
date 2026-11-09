@@ -1,6 +1,7 @@
 import random
 
 from entities.base_entity import Entity
+from entities.enemies import FloorBoss
 from items.base_item import Item
 from items.weapons import Sword
 from items.consumables import Potion
@@ -107,6 +108,45 @@ def main():
     potion.use(wasp)
     print(f"{potion} aplicada a {wasp.get_name()}.")
     print_health("Wasp", wasp.get_health(), 1200)
+
+    fight_floor_boss()
+
+
+def fight_floor_boss():
+    print_section("Combate contra el jefe de piso")
+    random.seed(1)
+    boss_loot = [
+        Sword(name="Kobold Blade", rarity="Rare", bonus_damage=20),
+        Sword(name="Midnight Fang", rarity="Legendary", bonus_damage=35),
+        Potion(name="Greater Health Potion", rarity="Rare", heal_amount=100),
+    ]
+    boss = FloorBoss(
+        name="Illfang",
+        max_hp=200,
+        attack_power=20,
+        defense=5,
+        xp_reward=100,
+        title="The Kobold Lord",
+        special_move_name="Ground Smash",
+        loot_table=boss_loot,
+    )
+    player = DualWielder(name="Dual Wielder", max_hp=200, power_attack=30, defend=5)
+
+    while boss.is_alive() and player.is_alive():
+        player_damage = player.attack(boss)
+        print(f"{player.get_name()} inflige {player_damage} HP a {boss.get_name()}.")
+        print_health(boss.get_name(), boss.get_health(), boss.get_max_hp())
+
+        if boss.is_alive():
+            boss_damage = boss.attack(player)
+            print(f"{boss.get_name()} inflige {boss_damage} HP a {player.get_name()}.")
+            print_health(player.get_name(), player.get_health(), player.get_max_hp())
+
+    if not boss.is_alive():
+        xp_reward = boss.get_xp_reward()
+        player.gain_xp(xp_reward)
+        print(f"{player.get_name()} gana {xp_reward} XP y recibe {boss.drop_loot()}.")
+
 
 if __name__ == "__main__":
     main()

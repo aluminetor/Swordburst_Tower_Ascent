@@ -52,10 +52,24 @@ class FloorBoss(Enemy):
     def get_name(self) -> str:
         return f"[BOSS] {super().get_name()} - {self._title}"
 
-    def take_damage(self, damage: int) -> int:
-        real_damage = super().take_damage(damage)
-        self._check_enrage()
+    def take_damage(self, raw_damage: int) -> int:
+        real_damage = super().take_damage(raw_damage)
+        if self.is_alive():
+            self._check_enrage()
         return real_damage
+
+    def attack(self, target: Entity) -> int:
+        if self._is_enraged and random.randint(1, 100) <= 35:
+            print(f"¡{self.get_name()} usa {self._special_move_name}!")
+            return target.take_damage(self.power_attack * 2)
+
+        return super().attack(target)
+
+    def drop_loot(self) -> Optional[Item]:
+        if not self._loot_table:
+            return None
+
+        return random.choice(self._loot_table)
 
     def _check_enrage(self) -> None:
         if not self._is_enraged and self.get_health() <= self.get_max_hp() * 0.4:
