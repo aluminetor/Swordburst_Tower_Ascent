@@ -30,3 +30,35 @@ class Enemy(Entity):
 
     def get_xp_reward(self) -> int:
         return self._xp_reward
+
+
+class FloorBoss(Enemy):
+    def __init__(
+        self,
+        name: str,
+        max_hp: int,
+        attack_power: int,
+        defense: int,
+        xp_reward: int,
+        title: str,
+        special_move_name: str,
+        loot_table: Optional[list[Item]] = None,
+    ) -> None:
+        super().__init__(name, max_hp, attack_power, defense, xp_reward, loot_table)
+        self._title = title
+        self._special_move_name = special_move_name
+        self._is_enraged = False
+
+    def get_name(self) -> str:
+        return f"[BOSS] {super().get_name()} - {self._title}"
+
+    def take_damage(self, damage: int) -> int:
+        real_damage = super().take_damage(damage)
+        self._check_enrage()
+        return real_damage
+
+    def _check_enrage(self) -> None:
+        if not self._is_enraged and self.get_health() <= self.get_max_hp() * 0.4:
+            self._is_enraged = True
+            self.power_attack = int(self.power_attack * 1.5)
+            print(f"¡{self.get_name()} ruge y entra en modo berserk!")

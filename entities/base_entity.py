@@ -10,6 +10,9 @@ class Entity():
     def get_health(self):
         return self.__health
 
+    def get_max_hp(self) -> int:
+        return self.__max_health
+
     def get_name(self):
         return self._name
 
